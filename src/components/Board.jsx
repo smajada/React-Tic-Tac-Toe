@@ -1,24 +1,34 @@
 import { useState } from "react";
-import Square from "./Square";
+import Header from "./Header";
 import Player from "./Players";
-
+import Square from "./Square";
 
 export default function Board() {
   const [p1IsNext, setP1IsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+  // const [winner, setWinner] = useState(null);
 
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) return;
     const nextSquares = squares.slice();
 
-    p1IsNext ? nextSquares[i] = "🎃" : nextSquares[i] = "👻";
+    p1IsNext ? (nextSquares[i] = "🎃") : (nextSquares[i] = "👻");
 
     setSquares(nextSquares);
     setP1IsNext(!p1IsNext);
   }
 
+  const handleRestart = () => {
+    setSquares(Array(9).fill(null));
+    setP1IsNext(true);
+  };
+
+  const winner = calculateWinner(squares);
+
   return (
     <>
+      <Header handleRestart={handleRestart} />
+
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={() => handleClick(0)} />
         <Square value={squares[1]} onSquareClick={() => handleClick(1)} />
@@ -36,7 +46,6 @@ export default function Board() {
       </div>
 
       <Player p1IsNext={p1IsNext} />
-
     </>
   );
 }
@@ -50,7 +59,7 @@ function calculateWinner(squares) {
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6]
+    [2, 4, 6],
   ];
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
