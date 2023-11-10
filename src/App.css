@@ -40,8 +40,6 @@ footer, h1{
   color: white;
 }
 
-
-
 .p1IsNextTrue {
   background: #c94b4b; 
   font-size: 4.7em;
@@ -88,3 +86,16 @@ header {
   background-color: #c94b4b;
 }
 
+.winner {
+  background: rgb(30, 30, 36);
+  padding: 4px;
+  border-radius: 8px;
+  color: white;
+  text-align: center;
+  z-index: 1;
+  position: absolute;
+  top: 25%;
+  left: auto;
+  width: 300px;
+  height: 300px;
+}

@@ -2,10 +2,12 @@ import { useState } from "react";
 import Header from "./Header";
 import Player from "./Players";
 import Square from "./Square";
+import WinnerModal from "./WinnerModal";
 
 export default function Board() {
   const [p1IsNext, setP1IsNext] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
+
   // const [winner, setWinner] = useState(null);
 
   function handleClick(i) {
@@ -18,10 +20,9 @@ export default function Board() {
     setP1IsNext(!p1IsNext);
   }
 
-  const handleRestart = () => {
-    setSquares(Array(9).fill(null));
-    setP1IsNext(true);
-  };
+  const handleRestart = () => (
+    setSquares(Array(9).fill(null)), setP1IsNext(true)
+  );
 
   const winner = calculateWinner(squares);
 
@@ -46,6 +47,8 @@ export default function Board() {
       </div>
 
       <Player p1IsNext={p1IsNext} />
+
+      <WinnerModal winner={winner} handleRestart={handleRestart}  />
     </>
   );
 }
